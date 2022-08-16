@@ -22,7 +22,7 @@ export function Comment({ content, onDeleteComment }) {
                   </div>
                   
 
-                  <button onClick={handleDeleteComment} title='Deletar comentário'>
+                  <button onClick={() => onDeleteComment(content)} title='Deletar comentário'>
                      <Trash size={24} />
                   </button>
                </header>
