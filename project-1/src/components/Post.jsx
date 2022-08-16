@@ -1,21 +1,31 @@
-import { format, formatDistanceToNow } from 'date-fns'
+import { useState } from 'react'
 import ptBR from 'date-fns/locale/pt-BR'
+import { format, formatDistanceToNow } from 'date-fns'
 
 import { Avatar } from './Avatar'
 import { Comment } from './Comment'
 import styles from './Post.module.css'
 
 export function Post({ author, publishedAt, content }) {
-   const publishedDateFormatted = format(
-      publishedAt, 
-      "d 'de' LLLL 'ás' HH:mm'h'", 
-      { locale: ptBR }
-   )
+   const [comments, setComments] = useState(['Post muito bacana ein!'])
+   const [newCommentText, setNewCommentText] = useState('')
 
-   const publishedDateRelativeToNow = formatDistanceToNow(
-      publishedAt, 
-      { locale: ptBR, addSuffix: true },
-   )
+   const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'ás' HH:mm'h'", { locale: ptBR })
+   const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, { locale: ptBR, addSuffix: true })
+
+   function handleCreateNewComment() {
+      event.preventDefault()
+      setComments([...comments, newCommentText])
+      setNewCommentText('')
+   }
+
+   function handleNewCommentChange() {
+      setNewCommentText(event.target.value)
+   }
+
+   function deleteComment() {
+
+   }
 
    return (
       <article className={styles.post}>
@@ -29,7 +39,10 @@ export function Post({ author, publishedAt, content }) {
                </div>
             </div>
 
-            <time title={publishedDateFormatted} dateTime={publishedAt.toISOString()}>
+            <time 
+               title={publishedDateFormatted} 
+               dateTime={publishedAt.toISOString()}
+            >
                {publishedDateRelativeToNow}
             </time>
          </header>
@@ -37,10 +50,10 @@ export function Post({ author, publishedAt, content }) {
          <div className={styles.content}>
             {content.map(line => {
                if (line.type === 'paragraph') {
-                  return <p>{line.content}</p>
+                  return <p key={line.content}>{line.content}</p>
                } else if (line.type === 'link') {
                   return (
-                     <p>
+                     <p key={line.content}>
                         <a>{line.content}</a>
                      </p>
                   )
@@ -48,10 +61,15 @@ export function Post({ author, publishedAt, content }) {
             })}
          </div>
 
-         <form className={styles.commentForm}>
+         <form className={styles.commentForm} onSubmit={handleCreateNewComment}>
             <strong>Deixe seu feedback</strong>
 
-            <textarea placeholder='Deixe seu comentário' />
+               
+            <textarea 
+               value={newCommentText} 
+               onChange={handleNewCommentChange}
+               placeholder='Deixe seu comentário' 
+            />
 
             <footer>
                <button type='submit'>Publicar</button>
@@ -59,10 +77,13 @@ export function Post({ author, publishedAt, content }) {
          </form>
 
          <div className={styles.commentList}>
-            <Comment />
-            <Comment />
-            <Comment />
-            <Comment />
+            {comments.map(comment => (
+               <Comment 
+                  key={comment} 
+                  content={comment} 
+                  onDeleteComment={deleteComment} 
+               />
+            ))}
          </div>
       </article>
    )
