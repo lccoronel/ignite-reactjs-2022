@@ -1,0 +1,52 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+}
+
+header {
+    background-color: var(--gray700);
+    width: 100%;
+    height: 12.5rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body {
+    background-color: var(--gray500);
+    flex: 1;
+}
+
+body form {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    margin-top: calc(0px - 1.5rem - 6px);
+}
+
+body form input {
+    background-color: var(--gray400);
+    border: none;
+    border-radius: 0.5rem;
+    width: 39.875rem;
+    height: 3.375rem;
+    font-size: 1rem;
+    color: var(--white);
+    padding: 1rem;
+}
+
+body form button {
+    background-color: var(--blue);
+    border: none;
+    border-radius: 0.5rem;
+    width: 5.625rem;
+    height: 3.25rem;
+    margin-left: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--white);
+}
