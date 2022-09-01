@@ -49,4 +49,12 @@ body form button {
     font-size: 0.8rem;
     font-weight: bold;
     color: var(--white);
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body form button img {
+    margin-left: 0.5rem;
 }
