@@ -1,0 +1,24 @@
+.emptyListWrapper {
+    max-width: 46rem;
+    margin: 0 auto;
+    height: 15.25rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.emptyListWrapper img {
+    width: 3.5rem;
+    height: 3.5rem;
+}
+
+.title {
+    margin-top: 1rem;
+    color: var(--gray300);
+}
+
+.emptyListWrapper p {
+    color: var(--gray300);
+}
