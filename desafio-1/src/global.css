@@ -6,10 +6,14 @@
     --gray700: #0D0D0D;
     --gray500: #262626;
     --gray400: #333333;
+    --gray300: #808080;
+
+    --purple: #8284FA;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
  }

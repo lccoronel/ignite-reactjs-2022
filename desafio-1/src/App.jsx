@@ -4,6 +4,7 @@ import logoImg from './assets/Logo.png'
 import plusImg from './assets/plus.png'
 import styles from './App.module.css'
 import './global.css'
+import { TitleWithCounter } from './components/TitleWithCounter'
 
 function App() {
   return (
@@ -20,6 +21,11 @@ function App() {
             <img src={plusImg} alt="adicionar" />
           </button>
         </form>
+
+        <div className={styles.taskInfoWrapper}>
+          <TitleWithCounter title="Tarefas criadas" value={0} />
+          <TitleWithCounter title="Concluidas" value={0} isCompletedTitle />
+        </div>
       </body>
     </div>
   )
