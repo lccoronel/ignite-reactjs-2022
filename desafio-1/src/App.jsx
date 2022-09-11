@@ -5,10 +5,36 @@ import plusImg from './assets/plus.png'
 import styles from './App.module.css'
 import { TitleWithCounter } from './components/TitleWithCounter'
 import { EmptyList } from './components/EmptyList'
+import { TaskCard } from './components/TaskCard'
 import './global.css'
 
 function App() {
+  const [description, setDescription] = useState('')
   const [tasks, setTasks] = useState([])
+
+  function handleAddNewTask(event) {
+    event.preventDefault()
+
+    const newTask = { id: tasks.length + 1, description, checked: false }
+
+    setTasks(prevValues => [...prevValues, newTask])
+    setDescription('')
+  }
+
+  function handleCheckedTask(id) {
+    const formattedTasks = tasks.map(task => {
+      if (task.id === id) task.checked = !task.checked
+
+      return task
+    })
+
+    setTasks(formattedTasks)
+  }
+
+  function handleDeleteTask(id) {
+    const filteredTasks = tasks.filter(task => task.id !== id)
+    setTasks(filteredTasks)
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -16,9 +42,15 @@ function App() {
         <img src={logoImg} alt="logo" />
       </header>
 
-      <body>
-        <form>
-          <input type="text" placeholder='Adicione uma nova tarefa' />
+      <main>
+        <form onSubmit={handleAddNewTask}>
+          <input 
+            type="text" 
+            placeholder='Adicione uma nova tarefa' 
+            value={description} 
+            onChange={(v) => setDescription(v.target.value)} 
+          />
+
           <button type="submit">
             Criar
             <img src={plusImg} alt="adicionar" />
@@ -26,14 +58,23 @@ function App() {
         </form>
 
         <div className={styles.taskInfoWrapper}>
-          <TitleWithCounter title="Tarefas criadas" value={0} />
+          <TitleWithCounter title="Tarefas criadas" value={tasks.length} />
           <TitleWithCounter title="Concluidas" value={0} isCompletedTitle />
         </div>
 
         <div className={styles.tasksList}>
           {!tasks.length && <EmptyList />}
+
+          {tasks.map(task => (
+            <TaskCard 
+              key={task.id} 
+              task={task} 
+              onCheckTask={handleCheckedTask}
+              onDeleteTask={handleDeleteTask}
+            />
+          ))}
         </div>
-      </body>
+      </main>
     </div>
   )
 }
