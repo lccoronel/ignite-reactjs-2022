@@ -34,6 +34,12 @@
     width: 39.5rem;
 }
 
+.taskDescriptionChecked {
+    color: var(--gray300);
+    width: 39.5rem;
+    text-decoration: line-through;
+}
+
 .trashButton {
     border: none;
     background: transparent;

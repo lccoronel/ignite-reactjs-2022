@@ -6,6 +6,7 @@ import styles from './TaskCard.module.css';
 
 export function TaskCard({ task, onCheckTask, onDeleteTask }) {
     const checkboxClassName = task.checked ? styles.checkboxChecked : styles.checkbox
+    const descriptionClassName = task.checked ? styles.taskDescriptionChecked : styles.taskDescription
 
     return (
         <div className={styles.taskCardWrapper}>
@@ -16,7 +17,7 @@ export function TaskCard({ task, onCheckTask, onDeleteTask }) {
             >
                 {task.checked && <img src={successImg} alt="Sucesso" />}
             </button>
-            <p className={styles.taskDescription}>
+            <p className={descriptionClassName}>
                 {task.description}
             </p>
             <button 
