@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 import logoImg from './assets/Logo.png'
 import plusImg from './assets/plus.png'
@@ -11,6 +11,8 @@ import './global.css'
 function App() {
   const [description, setDescription] = useState('')
   const [tasks, setTasks] = useState([])
+
+  const amountTasks = tasks.length
 
   function handleAddNewTask(event) {
     event.preventDefault()
@@ -36,6 +38,10 @@ function App() {
     setTasks(filteredTasks)
   }
 
+  const amountCompletedTasks = useMemo(() => {
+    return tasks.filter(task => task.checked === true).length
+  }, [tasks])
+
   return (
     <div className={styles.wrapper}>
       <header>
@@ -58,8 +64,13 @@ function App() {
         </form>
 
         <div className={styles.taskInfoWrapper}>
-          <TitleWithCounter title="Tarefas criadas" value={tasks.length} />
-          <TitleWithCounter title="Concluidas" value={0} isCompletedTitle />
+          <TitleWithCounter title="Tarefas criadas" amountTasks={amountTasks} />
+          <TitleWithCounter 
+            title="Concluidas" 
+            amountTasks={amountTasks} 
+            amountCompletedTasks={amountCompletedTasks} 
+            isCompletedTitle
+          />
         </div>
 
         <div className={styles.tasksList}>
