@@ -33,7 +33,7 @@ export const Contdown: React.FC = () => {
       interval = setInterval(() => {
         const secondsDiferrence = differenceInSeconds(
           new Date(),
-          activeCycle.startDate,
+          new Date(activeCycle.startDate),
         )
 
         if (secondsDiferrence >= totalSeconds) {
